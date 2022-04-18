@@ -11,7 +11,7 @@
     "transpile": "babel ./server --out-dir dist-server",
     "clean": "rimraf dist-server",
     "watch:dev": "nodemon",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "nodemonConfig": {
     "exec": "npm run dev",
@@ -34,9 +34,10 @@
     ]
   },
   "jest": {
+    "resolver": "jest-node-exports-resolver",
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
     ]
   },
   "dependencies": {
@@ -45,15 +46,22 @@
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^27.5.1",
+    "firebase-admin": "^10.0.2",
     "jest": "^27.5.1",
+    "jest-node-exports-resolver": "^1.1.6",
     "supertest": "^6.2.2"
   }
 }

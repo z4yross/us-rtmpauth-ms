@@ -1,1 +1,3 @@
-# Express js template ES6 JTEST BABEL
+# us-rtmpauth-ms
+
+auth for unstream rtmp server
