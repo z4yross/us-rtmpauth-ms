@@ -8,7 +8,7 @@ describe("POST /auth/setuserkey", () => {
         const response = await request
             .post("/auth/setuserkey")
             .set('Accept', 'application/json')
-            .send({ uid: "1" })
+            .send({ name: "testUser" })
 
         expect(response.status).toBe(200);
     })
@@ -19,14 +19,14 @@ describe("POST /auth/checkuserkey valid key", () => {
         const responseSetUserKey = await request
             .post("/auth/setuserkey")
             .set('Accept', 'application/json')
-            .send({ uid: "testUser" })
+            .send({ name: "testUser" })
 
         responseSetUserKey.text
 
         const response = await request
             .post("/auth/checkuserkey")
             .set('Accept', 'application/json')
-            .send({ uid: "testUser", key: responseSetUserKey.text })
+            .send({ name: "testUser", key: responseSetUserKey.text })
 
         expect(response.status).toBe(200);
     })
@@ -37,7 +37,7 @@ describe("POST /auth/checkuserkey invalid key", () => {
         const response = await request
             .post("/auth/checkuserkey")
             .set('Accept', 'application/json')
-            .send({ uid: "testUser", key: "aaa" })
+            .send({ name: "testUser", key: "aaa" })
 
         expect(response.status).toBe(401);
     })

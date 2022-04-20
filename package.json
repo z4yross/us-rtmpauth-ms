@@ -1,6 +1,6 @@
 {
-  "name": "express-template",
-  "version": "0.0.0",
+  "name": "us_rtmpauth_ms",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "npm run prod",
