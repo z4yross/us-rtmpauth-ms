@@ -2,8 +2,11 @@ import app from './initializeApp';
 import { getFirestore } from "firebase-admin/firestore"; 
 import { decryptKey, encryptKey, generateKey } from '../crypto';
 import errorStrings from '../errors';
+import { initializeQueue, NTF_QUEUE } from '../msgq/init';
+import { sendStreamNotification } from '../msgq/msg';
 
 const db = getFirestore(app);
+const channel = initializeQueue();
 
 export async function checkStreamKey(uid, key){
     try {
@@ -14,6 +17,8 @@ export async function checkStreamKey(uid, key){
 
         const keyDB = decryptKey(uid, userSnap.data().keyHash);
         if(keyDB !== key) throw new Error(errorStrings.WRONG_KEY);
+
+        if(channel) sendStreamNotification(channel, NTF_QUEUE, uid, true);
 
         return true;
     } catch(error){
